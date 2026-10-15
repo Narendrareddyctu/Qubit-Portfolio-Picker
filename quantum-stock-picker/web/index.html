@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Stock Picker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Quantum Stock Picker</h1>
+  <p class="lede">Choose a few stocks out of many, with high profit and low risk, by asking a quantum circuit (QAOA, built in Qiskit) and checking its answer against trying every combination.</p>
+</header>
+
+<main>
+  <section class="controls" aria-label="Choose problem size">
+    <span class="ctl-label">Stocks to choose from</span>
+    <div id="sizes" class="seg" role="radiogroup"></div>
+    <span class="ctl-label">Chart</span>
+    <div id="views" class="seg" role="radiogroup">
+      <button role="radio" data-view="stocks" aria-checked="true">Single stocks</button>
+      <button role="radio" data-view="portfolios" aria-checked="false">Whole portfolios</button>
+    </div>
+  </section>
+
+  <noscript><p class="warn">This page draws its charts with JavaScript from <code>results.js</code>. Please enable JavaScript.</p></noscript>
+
+  <section class="grid">
+    <figure class="panel chart-panel">
+      <figcaption id="chart-title"></figcaption>
+      <svg id="chart" viewBox="0 0 640 420" role="img" aria-label="Risk against profit chart"></svg>
+      <div class="legend" id="legend"></div>
+    </figure>
+
+    <aside class="panel verdict" id="verdict" aria-live="polite"></aside>
+  </section>
+
+  <section class="panel">
+    <h2>What changes as the problem grows</h2>
+    <p class="muted">Same QAOA depth and a similar optimiser budget at every size. Each bigger problem has twice as many possibilities for every added stock.</p>
+    <div class="scale-wrap">
+      <div><svg id="scale" viewBox="0 0 520 260" role="img" aria-label="Approximation ratio against number of stocks"></svg><div class="legend" id="scale-legend"></div></div>
+      <div class="table-scroll"><table id="table"></table></div>
+    </div>
+  </section>
+
+  <section class="panel how">
+    <h2>How it works</h2>
+    <ol>
+      <li><b>Encode.</b> One qubit per stock: |1&gt; means picked, |0&gt; means left out.</li>
+      <li><b>Score.</b> Cost = risk &minus; profit + a penalty if we do not pick exactly <i>k</i> stocks. This becomes a Hamiltonian made of Z and ZZ terms.</li>
+      <li><b>Solve.</b> QAOA alternates a cost layer and a mixer layer, <i>p</i> times. A classical optimiser (COBYLA) tunes the layer angles to lower the average cost.</li>
+      <li><b>Read out.</b> Measure the circuit 2048 times and keep the cheapest valid portfolio.</li>
+      <li><b>Check.</b> Compare with the exhaustive search over all 2<sup>n</sup> portfolios.</li>
+    </ol>
+  </section>
+</main>
+
+<footer>Data are synthetic (seeded sector-factor model), so results demonstrate the method, not investment advice. Simulations run on a classical computer, not real quantum hardware.</footer>
+
+<script src="results.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

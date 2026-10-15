@@ -1,0 +1,5 @@
+n= 8 k=3  brute=['MEDA', 'BNKR', 'CLDS']  qaoa=['MEDA', 'BNKR', 'CLDS']  optimal=True rank=1/56  AR=0.976 (random 0.873)  P(opt)=0.0129  t=5.8s [qiskit]
+n=12 k=4  brute=['MEDA', 'BNKR', 'CLDS', 'HYDR']  qaoa=['MEDA', 'BNKR', 'CLDS', 'HYDR']  optimal=True rank=1/495  AR=0.986 (random 0.888)  P(opt)=0.0012  t=12.7s [qiskit]
+n=16 k=5  brute=['MEDA', 'BNKR', 'CLDS', 'HYDR', 'GRID']  qaoa=['BNKR', 'CLDS', 'HYDR', 'VACC', 'GRID']  optimal=False rank=3/4368  AR=0.991 (random 0.890)  P(opt)=0.0001  t=9.6s [fast]
+n=20 k=6  brute=['BNKR', 'CLDS', 'HYDR', 'VACC', 'GRID', 'DRLL']  qaoa=['BNKR', 'CLDS', 'VACC', 'PAYS', 'GRID', 'DRLL']  optimal=False rank=8/38760  AR=0.992 (random 0.891)  P(opt)=0.0000  t=161.8s [fast]
+saved results/results.json and web/results.js
